@@ -25,12 +25,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${beatrice.variable} px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16`}
->
-      <body>
-        <Header /> 
-        {children}
-      </body>
-    </html>
-  );
+  <html lang="en" className={`${beatrice.variable} px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16`}>
+    <body className="bg-[url('/noisyBackground.svg')]">
+      <Header /> 
+      {children}
+    </body>
+  </html>
+);
 }
