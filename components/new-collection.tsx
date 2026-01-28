@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, MoveRight } from "lucide-react";
 
@@ -19,13 +19,48 @@ type Product = {
 const products: Product[] = [
   { image: IMG1, type: "Summer", name: "Linen Shirt", price: "$45" },
   { image: IMG2, type: "Casual", name: "Cotton Tee", price: "$28" },
-  // { image: IMG3, type: "Limited", name: "Denim Jacket", price: "$89" },
-  // { image: IMG4, type: "New Drop", name: "Relaxed Pants", price: "$62" },
-  // { image: IMG3, type: "Limited", name: "Denim Jacket", price: "$89" },
-  // { image: IMG4, type: "New Drop", name: "Relaxed Pants", price: "$62" },
+  { image: IMG3, type: "Limited", name: "Denim Jacket", price: "$89" },
+  { image: IMG4, type: "New Drop", name: "Relaxed Pants", price: "$62" },
 ];
 
 const NewCollection = () => {
+  const [startIdx, setStartIdx] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const visibleCount = 2;
+  const total = products.length;
+
+  // Disable buttons if not enough images
+  const canScroll = total > visibleCount;
+
+  // Animation logic
+  const [direction, setDirection] = useState<"left" | "right" | null>(null);
+  const handlePrev = () => {
+    if (!canScroll || animating) return;
+    setDirection("left");
+    setAnimating(true);
+    setTimeout(() => {
+      setStartIdx((prev) => (prev - 1 + total) % total);
+      setAnimating(false);
+      setDirection(null);
+    }, 350);
+  };
+  const handleNext = () => {
+    if (!canScroll || animating) return;
+    setDirection("right");
+    setAnimating(true);
+    setTimeout(() => {
+      setStartIdx((prev) => (prev + 1) % total);
+      setAnimating(false);
+      setDirection(null);
+    }, 350);
+  };
+
+  // Compute visible products (wrap around)
+  const visibleProducts = [
+    products[startIdx],
+    products[(startIdx + 1) % total],
+  ];
+
   return (
     <div className="flex flex-col md:flex-row gap-x-2 md:mt-10 mt-5 py-20">
       {/* LEFT */}
@@ -46,10 +81,20 @@ const NewCollection = () => {
           </button>
 
           <div className="space-x-3">
-            <button className="border border-appGray p-1">
+            <button
+              className="border border-appGray p-1 disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handlePrev}
+              aria-label="Previous"
+              disabled={!canScroll || animating}
+            >
               <ChevronLeft size={24} />
             </button>
-            <button className="border border-appGray p-1">
+            <button
+              className="border border-appGray p-1 disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handleNext}
+              aria-label="Next"
+              disabled={!canScroll || animating}
+            >
               <ChevronRight size={24} />
             </button>
           </div>
@@ -57,37 +102,40 @@ const NewCollection = () => {
       </div>
 
       {/* RIGHT / CAROUSEL */}
-      <div className="flex justify-between gap-x-8 w-full">
-        {products.map((product, i) => (
+      <div
+        className={`flex justify-between gap-x-8 w-full transition-transform duration-300 ease-in-out ${
+          direction === "left"
+            ? "animate-slide-left"
+            : direction === "right"
+              ? "animate-slide-right"
+              : ""
+        }`}
+      >
+        {visibleProducts.map((product, i) => (
           <div key={i} className="px-1 flex-1 min-w-0">
-        <div className="flex flex-col items-start w-full">
-          <div className="relative w-full aspect-square max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-            <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover border border-appGray rounded"
-          priority={i === 0}
-            />
-          </div>
-          <div className="flex justify-between mt-2 text-sm font-beatrice w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-            <div className="flex flex-col leading-tight">
-          <span className="text-xs font-medium text-zinc-500">
-            {product.type}
-          </span>
-          <span className="font-medium">{product.name}</span>
+            <div className="flex flex-col items-start w-full">
+              <div className="relative w-full aspect-square max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover border border-appGray rounded"
+                  priority={i === 0}
+                />
+              </div>
+              <div className="flex justify-between mt-2 text-sm font-beatrice w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+                <div className="flex flex-col leading-tight">
+                  <span className="text-xs font-medium text-zinc-500">
+                    {product.type}
+                  </span>
+                  <span className="font-medium">{product.name}</span>
+                </div>
+                <span className="font-semibold">{product.price}</span>
+              </div>
             </div>
-            <span className="font-semibold">{product.price}</span>
-          </div>
-        </div>
           </div>
         ))}
-
-        {/* MOBILE CTA */}
-        {/* <button type="button" className="md:hidden flex justify-between px-3 bg-appGray p-1.5 font-beatrice gap-x-4 mt-4">
-          Go To Shop <MoveRight />
-        </button> */}
       </div>
     </div>
   );
