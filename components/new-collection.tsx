@@ -62,7 +62,7 @@ const NewCollection = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row gap-x-2 md:mt-10 mt-5 py-20">
+    <div className="flex flex-col md:flex-row gap-x-2 md:mt-10 mt-5 py-10 pb-15 md:py-20">
       {/* LEFT */}
       <div className="flex flex-col justify-between">
         <div>
