@@ -24,6 +24,9 @@ h5,
 h6 {
   font-family: var(--font-beatrice), serif;
 }
+button {
+  cursor: pointer;
+}
 
 /* Utility classes - use wherever needed */
 .font-beatrice {
