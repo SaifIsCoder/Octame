@@ -62,7 +62,7 @@ const NewWeek = () => {
       {/* Header */}
       <div className="flex justify-between items-end">
         <div className="relative">
-          <h1 className="text-5xl md:text-6xl font-extrabold uppercase leading-tight">
+          <h1 className="text-5xl md:text-4xl lg:text-6xl font-extrabold leading-10.5 md:leading-13">
             New <br /> This week
           </h1>
           <span className="absolute top-12 md:top-16 left-64 md:left-81 font-extrabold text-[#000E8A]">

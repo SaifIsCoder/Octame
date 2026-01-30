@@ -62,11 +62,11 @@ const NewCollection = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row gap-x-2 md:mt-10 mt-5 py-10 pb-15 md:py-20">
+    <div className="flex flex-col md:flex-row gap-x-2 py-10 pb-15 md:py-20">
       {/* LEFT */}
       <div className="flex flex-col justify-between">
         <div>
-          <h1 className="text-5xl md:text-4xl lg:text-6xl font-extrabold leading-9.5 md:leading-12">
+          <h1 className="text-5xl md:text-4xl lg:text-6xl font-extrabold leading-10.5 md:leading-13">
             NEW <br /> COLLECTION
           </h1>
           <p className="font-beatrice leading-5 mt-3 md:mt-2 text-sm md:text-base">
