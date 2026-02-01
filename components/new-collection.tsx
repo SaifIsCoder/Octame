@@ -123,16 +123,7 @@ const NewCollection = () => {
                   className="object-cover border border-appGray rounded"
                   priority={i === 0}
                 />
-              </div>
-              {/* <div className="flex justify-between mt-2 text-sm font-beatrice w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-                <div className="flex flex-col leading-tight">
-                  <span className="text-xs font-medium text-zinc-500">
-                    {product.type}
-                  </span>
-                  <span className="font-medium">{product.name}</span>
-                </div>
-                <span className="font-semibold">{product.price}</span>
-              </div> */}
+              </d
             </div>
           </div>
         ))}
