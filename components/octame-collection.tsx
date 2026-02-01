@@ -10,7 +10,7 @@ const OctameCollection = () => {
 
       <div className="border-b-appGray">
         {/* categories  */}
-        <div>
+        {/* <div>
           <ul className="flex space-x-10">
             <li>
               <Link href="/">All</Link>
@@ -25,7 +25,7 @@ const OctameCollection = () => {
               <Link href="/">Kid</Link>
             </li>
           </ul>
-        </div>
+        </div> */}
 
         {/* filter  */}
 
