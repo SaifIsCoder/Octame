@@ -123,7 +123,8 @@ const NewCollection = () => {
                   className="object-cover border border-appGray rounded"
                   priority={i === 0}
                 />
-              </d
+              </div>
+
             </div>
           </div>
         ))}
